@@ -4,6 +4,12 @@ class Category:
         self.ledger = []
         self.balance = 0
         
+    
+    def checkFunds(self, amount):
+        if amount > self.balance:
+            return False
+        return True
+    
     def deposit(self, amount, description=""):
         print(f"Depositing into {self.name}...")
         self.ledger.append({'amount': amount, 'description': description})
@@ -12,7 +18,7 @@ class Category:
         
     def withdraw(self, amount, description=""):
         print(f"Withdrawing from {self.name}...")
-        if self.balance - amount < 0:
+        if not self.checkFunds(amount):
             print("Declined: Not enough for withdrawal.")
             return False
         self.ledger.append({'amount': -amount, 'description': description})
@@ -22,7 +28,7 @@ class Category:
     
     def transfer(self, amount, category):
         print(f"Transfering ${amount} from {self.name} to {category.name}...")
-        if self.balance - amount < 0:
+        if not self.checkFunds(amount):
             print("Transfer Failed: Not enough for transfer.")
             return False
         self.withdraw(amount, f"Transfer to {category.name}")
