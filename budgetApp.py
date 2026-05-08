@@ -38,6 +38,19 @@ class Category:
     
     def getBalance(self):
         return f"Current Balance: ${self.balance}"
+    
+    def displayCategory(self):
+        fullAsterisks = int(30 - len(self.name))
+        halfAsterisks = "*" * int(fullAsterisks/2)
+        
+        header = ""
+        
+        if fullAsterisks/2 % 2 == 0.5 or fullAsterisks/2 % 2 == 1.5:
+            header = halfAsterisks + self.name + halfAsterisks + "*"
+        else:
+            header = halfAsterisks + self.name + halfAsterisks 
+
+        print(header)
 
 def createSpendChart(categories):
     pass
@@ -52,3 +65,6 @@ food.withdraw(1000, "Sushi")
 games = Category("Games")
 games.deposit(10000, "deposit")
 games.transfer(500, food)
+
+food.displayCategory()
+games.displayCategory()
