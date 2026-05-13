@@ -62,24 +62,20 @@ class Category:
         
             
     def printLedgerEntry(self, ledgerEntry):
-        joinedDescriptionAndAmount = ledgerEntry['description'][0:22] + ledgerEntry['amount']
+        joinedDescriptionAndAmount = ledgerEntry['description'][0:23] + ledgerEntry['amount']
         spaceBetween = " " * (30 - len(joinedDescriptionAndAmount))
         
-        print(ledgerEntry['description'][0:22] + spaceBetween + ledgerEntry['amount'])
+        print(ledgerEntry['description'][0:23] + spaceBetween + ledgerEntry['amount'])
         return
 
 def createSpendChart(categories):
     pass
 
 
-food = Category("Food")
-food.deposit(900,"deposit")
-food.withdraw(45.67, "milk, cereal, eggs, bacon, bread")
-print(food.balance)
-food.withdraw(1000, "Sushi")
-
-games = Category("Games")
-games.deposit(10000, "deposit")
-games.transfer(500, food)
-
+food = Category('Food')
+food.deposit(1000, 'initial deposit')
+food.withdraw(10.15, 'groceries')
+food.withdraw(15.89, 'restaurant and more food for dessert')
+clothing = Category('Clothing')
+food.transfer(50, clothing)
 print(food)
