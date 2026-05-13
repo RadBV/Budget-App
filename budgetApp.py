@@ -6,8 +6,14 @@ class Category:
         
     
     def __str__(self):
-        self.displayCategory()
-        return "Total: " + format(self.balance, ".2f")
+        displayCategory = self.determineHeader() + "\n"
+        
+        for entry in list(self.ledger):
+            displayCategory += self.returnLedgerEntry(entry) + "\n"
+            
+        displayCategory += "Total: " + format(self.balance, ".2f")
+            
+        return displayCategory
     
     def checkFunds(self, amount):
         if amount > self.balance:
@@ -19,16 +25,18 @@ class Category:
     
     def deposit(self, amount, description=""):
         print(f"Depositing into {self.name}...")
-        self.ledger.append({'amount': format(amount, ".2f"), 'description': description})
+        self.ledger.append({'amount': amount, 'description': description})
         self.balance += amount
         print("Deposit Successful!")
         
     def withdraw(self, amount, description=""):
+        
         print(f"Withdrawing from {self.name}...")
         if not self.checkFunds(amount):
             print("Declined: Not enough for withdrawal.")
             return False
-        self.ledger.append({'amount': format(-amount,".2f"), 'description': description})
+        
+        self.ledger.append({'amount': -amount, 'description': description})
         self.balance -= amount
         print("Withdrawal Successful!")
         return True
@@ -44,13 +52,6 @@ class Category:
         return True
        
     
-    def displayCategory(self):
-        header = self.determineHeader()
-        print(header)
-        
-        for entry in list(self.ledger):
-            self.printLedgerEntry(entry)
-    
     def determineHeader(self):
         fullAsterisks = int(30 - len(self.name))
         halfAsterisks = "*" * int(fullAsterisks/2)
@@ -61,12 +62,11 @@ class Category:
             return halfAsterisks + self.name + halfAsterisks 
         
             
-    def printLedgerEntry(self, ledgerEntry):
-        joinedDescriptionAndAmount = ledgerEntry['description'][0:23] + ledgerEntry['amount']
+    def returnLedgerEntry(self, ledgerEntry):
+        joinedDescriptionAndAmount = ledgerEntry['description'][0:23] + format(ledgerEntry['amount'], ".2f")
         spaceBetween = " " * (30 - len(joinedDescriptionAndAmount))
         
-        print(ledgerEntry['description'][0:23] + spaceBetween + ledgerEntry['amount'])
-        return
+        return ledgerEntry['description'][0:23] + spaceBetween + format(ledgerEntry['amount'], ".2f")
 
 def createSpendChart(categories):
     pass
