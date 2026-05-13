@@ -5,6 +5,10 @@ class Category:
         self.balance = 0
         
     
+    def __str__(self):
+        self.displayCategory()
+        return "Total: " + format(self.balance, ".2f")
+    
     def checkFunds(self, amount):
         if amount > self.balance:
             return False
@@ -38,7 +42,7 @@ class Category:
         category.deposit(amount, f"Transfer from {self.name}")
         print("Transfer Successful!")
         return True
-        
+       
     
     def displayCategory(self):
         header = self.determineHeader()
@@ -46,8 +50,6 @@ class Category:
         
         for entry in list(self.ledger):
             self.printLedgerEntry(entry)
-            
-        print("Total: " + format(self.balance, ".2f"))
     
     def determineHeader(self):
         fullAsterisks = int(30 - len(self.name))
@@ -80,5 +82,4 @@ games = Category("Games")
 games.deposit(10000, "deposit")
 games.transfer(500, food)
 
-food.displayCategory()
-games.displayCategory()
+print(food)
