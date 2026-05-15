@@ -30,7 +30,6 @@ class Category:
         print("Deposit Successful!")
         
     def withdraw(self, amount, description=""):
-        
         print(f"Withdrawing from {self.name}...")
         if not self.checkFunds(amount):
             print("Declined: Not enough for withdrawal.")
@@ -69,7 +68,10 @@ class Category:
         return ledgerEntry['description'][0:23] + spaceBetween + format(ledgerEntry['amount'], ".2f")
 
 def createSpendChart(categories):
-    pass
+    barChart = "Percentage spent by category \n"
+
+
+    return barChart
 
 
 food = Category('Food')
@@ -79,3 +81,18 @@ food.withdraw(15.89, 'restaurant and more food for dessert')
 clothing = Category('Clothing')
 food.transfer(50, clothing)
 print(food)
+
+games = Category("Games")
+games.deposit(2000, "initial deposit")
+games.withdraw(49.99, "TES IV: Oblivion Remastered")
+games.withdraw(29.99, "Minecraft")
+games.withdraw(29.99, "Subnautica 2")
+games.withdraw(69.99, "Assassin's Creed Shadows")
+games.withdraw(14.99, "Stardew Valley")
+games.transfer(500, clothing)
+
+clothing.withdraw(61.30, "Teen Titans Raven Cosplay")
+
+categoriesList = [food, clothing, games]
+
+print(createSpendChart(categoriesList))
